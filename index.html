@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Esmeralda Osei — Data Analyst Portfolio</title>
+<meta name="description" content="Data analyst portfolio of Esmeralda Osei. Interactive Power BI, Tableau, Excel and SQL projects turning business data into clear decisions." />
+
+<!-- Favicon: small gold bar chart -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFFFFF'/%3E%3Crect x='7' y='16' width='4' height='9' fill='%23B8922F'/%3E%3Crect x='14' y='11' width='4' height='14' fill='%23B8922F'/%3E%3Crect x='21' y='7' width='4' height='18' fill='%23B8922F'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#F7F8FA;
+    --paper-2:#EEF1F5;
+    --card:#FFFFFF;
+    --ink:#16202E;
+    --slate-700:#33415A;
+    --slate-500:#62708A;
+    --slate-400:#97A0AE;
+    --line:#E3E8EF;
+    --line-2:#ECEFF4;
+    --gold:#B8922F;
+    --gold-bright:#CCA23B;
+    --gold-soft:#ECD8A0;
+    --gold-ink:#8C6E1E;     /* readable gold for text on light */
+    --gold-tint:#F6EFDD;
+
+    --maxw:1160px;
+    --r:14px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.1;letter-spacing:-.01em;margin:0}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-ink)}
+
+  /* ---------- Nav ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(247,248,250,.85);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-family:"Fraunces",serif;font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .brand .dot{width:9px;height:9px;border-radius:2px;background:var(--gold);box-shadow:0 0 0 4px rgba(184,146,47,.16)}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.08em;color:var(--slate-500);text-transform:uppercase;transition:color .2s var(--ease)}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-cta{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.06em;color:#fff!important;background:var(--ink);padding:9px 16px;border-radius:8px;text-transform:uppercase;transition:background .2s var(--ease),transform .2s var(--ease)}
+  .nav-cta:hover{background:var(--gold);color:var(--ink)!important;transform:translateY(-1px)}
+  @media(max-width:820px){.nav-links{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;padding:148px 0 92px;
+    background:
+      radial-gradient(900px 460px at 88% -8%, var(--gold-tint), transparent 62%),
+      linear-gradient(180deg,#FFFFFF 0%, var(--paper) 70%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(22,32,46,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22,32,46,.04) 1px, transparent 1px);
+    background-size:46px 46px;
+    mask-image:radial-gradient(820px 480px at 26% 34%, #000 28%, transparent 78%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.55fr .9fr;gap:48px;align-items:center}
+
+  .avatar{position:relative;width:108px;height:108px;border-radius:50%;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 6px rgba(184,146,47,.10);margin-bottom:26px;background:linear-gradient(135deg,#EEF1F5,#E3E8EF)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .avatar .avi{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-weight:600;font-size:2rem;color:var(--gold-ink)}
+  .avatar.noimg img{display:none}
+  .avatar.noimg .avi{display:flex}
+
+  .hero h1{font-size:clamp(2.5rem,5.4vw,4.1rem);font-weight:600;letter-spacing:-.02em;margin:18px 0 14px;color:var(--ink)}
+  .hero h1 .sub{display:block;color:var(--slate-500);font-weight:400;font-size:.52em;margin-top:.35em;font-style:italic}
+  .hero-tools{font-family:"IBM Plex Mono",monospace;font-size:13.5px;letter-spacing:.06em;color:var(--gold-ink);margin:0 0 22px}
+  .hero-text{color:var(--slate-700);max-width:46ch;margin:0 0 30px;font-size:17px}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.04em;padding:13px 22px;border-radius:10px;cursor:pointer;transition:transform .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+  .btn .arr{transition:transform .2s var(--ease)}
+  .btn:hover .arr{transform:translateX(3px)}
+  .btn-primary{background:var(--ink);color:#fff;border:1px solid var(--ink)}
+  .btn-primary:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:translateY(-2px)}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-ink);transform:translateY(-2px)}
+
+  .metrics{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden;box-shadow:0 18px 40px -28px rgba(22,32,46,.25)}
+  .metric{padding:20px 24px;border-bottom:1px solid var(--line-2)}
+  .metric:last-child{border-bottom:0}
+  .metric .num{font-family:"Fraunces",serif;font-size:2.1rem;color:var(--ink);line-height:1}
+  .metric .num span{color:var(--gold)}
+  .metric .lbl{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-500);margin-top:8px}
+  @media(max-width:880px){
+    .hero{padding:120px 0 68px}
+    .hero-grid{grid-template-columns:1fr;gap:36px}
+    .metrics{flex-direction:row;flex-wrap:wrap}
+    .metric{flex:1 1 40%;border-bottom:0;border-right:1px solid var(--line-2)}
+  }
+
+  /* ---------- Section ---------- */
+  .section{padding:88px 0}
+  .section + .section{border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:40px;max-width:62ch}
+  .sec-code{display:inline-flex;align-items:center;gap:12px;margin-bottom:16px}
+  .sec-code .chip{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--ink);background:var(--gold-soft);padding:5px 10px;border-radius:6px}
+  .axis{position:relative;height:1px;flex:1;background:var(--line);min-width:60px}
+  .axis::before,.axis::after{content:"";position:absolute;top:-3px;width:1px;height:7px;background:var(--gold)}
+  .axis::before{left:0}.axis::after{left:14px}
+  .sec-head h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin:0 0 14px;color:var(--ink)}
+  .sec-head p{color:var(--slate-500);font-size:17px;margin:0}
+
+  /* ---------- Project grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
+  .card:hover{transform:translateY(-5px);box-shadow:0 24px 46px -26px rgba(22,32,46,.30);border-color:var(--gold-soft)}
+
+  .card-img{display:flex;align-items:center;justify-content:center;position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,#F1F4F8,#E7ECF2)}
+  .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+  .card:hover .card-img img{transform:scale(1.05)}
+  /* placeholder shown if image is missing */
+  .card-img .ph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--slate-400);font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .card-img .ph svg{opacity:.6}
+  .card-img.noimg img{display:none}
+  .card-img.noimg .ph{display:flex}
+  .card-img.noimg .open{display:none}
+  .card-img .open{position:absolute;top:12px;right:12px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;background:rgba(22,32,46,.78);color:#fff;padding:5px 9px;border-radius:6px;opacity:0;transform:translateY(-4px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .card:hover .card-img .open{opacity:1;transform:none}
+
+  .card-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+  .card-body h3{font-size:1.22rem;margin:0 0 4px;color:var(--ink)}
+  .card-body .underline{height:2px;width:0;background:var(--gold);margin:0 0 12px;transition:width .4s var(--ease)}
+  .card:hover .card-body .underline{width:44px}
+  .card-body p{color:var(--slate-500);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+  .actions{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+  .act{display:flex;align-items:center;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.02em;color:var(--slate-700);background:#F3F5F8;border:1px solid var(--line);padding:11px 14px;border-radius:9px;transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),transform .15s var(--ease)}
+  .act:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:translateX(2px)}
+  .act:hover .a-ic{color:var(--ink)}
+  .act .a-ic{color:var(--slate-400);transition:color .2s var(--ease)}
+
+  /* ---------- SQL section ---------- */
+  .sql-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:start}
+  .sql-gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sql-shot{position:relative;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#F1F4F8,#E7ECF2);min-height:160px;transition:border-color .25s var(--ease),transform .25s var(--ease)}
+  .sql-shot:hover{border-color:var(--gold-soft);transform:translateY(-3px)}
+  .sql-shot img{width:100%;height:160px;object-fit:cover;object-position:top left}
+  .sql-shot .ph{display:none;color:var(--slate-400);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .sql-shot.noimg img{display:none}
+  .sql-shot.noimg .ph{display:flex}
+  .sql-panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:0 20px 44px -30px rgba(22,32,46,.28)}
+  .sql-panel h3{color:var(--ink);font-size:1.35rem;margin:0 0 18px}
+  .sql-row{margin-bottom:16px}
+  .sql-row .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:4px}
+  .sql-row .v{color:var(--slate-700);font-size:14.5px;line-height:1.55}
+  .kpis{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .kpis span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--gold-ink);background:var(--gold-tint);border:1px solid var(--gold-soft);padding:5px 10px;border-radius:6px}
+  .sql-panel .btn{margin-top:18px;width:100%;justify-content:center}
+  @media(max-width:860px){.sql-layout{grid-template-columns:1fr}}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--paper-2);color:var(--ink);padding:64px 0 38px;border-top:1px solid var(--line)}
+  .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  footer h3{font-size:1.7rem;margin:0 0 6px}
+  footer .tag{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.08em;color:var(--slate-500)}
+  .open-pill{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--gold-ink);background:var(--gold-tint);border:1px solid var(--gold-soft);padding:7px 14px;border-radius:30px}
+  .open-pill .pulse{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(184,146,47,.5);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,146,47,.45)}70%{box-shadow:0 0 0 9px rgba(184,146,47,0)}100%{box-shadow:0 0 0 0 rgba(184,146,47,0)}}
+  .foot-right{text-align:right}
+  .foot-links{display:flex;gap:22px;justify-content:flex-end;flex-wrap:wrap;margin-bottom:18px}
+  .foot-links a{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.06em;color:var(--slate-500);text-transform:uppercase;transition:color .2s var(--ease)}
+  .foot-links a:hover{color:var(--gold-ink)}
+  .socials{display:flex;gap:12px;justify-content:flex-end;margin-bottom:14px}
+  .socials a{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;color:var(--slate-500);transition:color .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
+  .socials a:hover{color:var(--gold-ink);border-color:var(--gold);transform:translateY(-2px)}
+  .foot-email a{color:var(--ink);border-bottom:1px solid var(--gold);padding-bottom:1px}
+  .copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;color:var(--slate-500)}
+  @media(max-width:680px){.foot-right{text-align:left}.foot-links,.socials{justify-content:flex-start}}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>Esmeralda Osei</a>
+    <div class="nav-links">
+      <a href="#powerbi">Power BI</a>
+      <a href="#excel">Excel</a>
+      <a href="#tableau">Tableau</a>
+      <a href="#sql">SQL</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="avatar">
+          <img src="images/IMG_0893.jpeg" alt="Portrait of Esmeralda Osei" onerror="this.closest('.avatar').classList.add('noimg')" />
+          <span class="avi">EO</span>
+        </div>
+        <p class="eyebrow">Data Analyst · Portfolio</p>
+        <h1>
+          Esmeralda Osei
+          <span class="sub">Turning data into clear business decisions.</span>
+        </h1>
+        <p class="hero-tools mono">Power BI · SQL · Tableau · Excel · DAX</p>
+        <p class="hero-text">I design interactive dashboards and analytics case studies that turn raw data into decisions people can act on — across retail, e-commerce, healthcare and HR.</p>
+        <div class="hero-btns">
+          <a href="#powerbi" class="btn btn-primary">View projects <span class="arr">→</span></a>
+          <a href="https://www.linkedin.com/in/esmeralda-pinamang-osei-942a35111" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="metrics" aria-label="Portfolio at a glance">
+        <div class="metric"><div class="num">12<span>+</span></div><div class="lbl">Analytics projects</div></div>
+        <div class="metric"><div class="num">4</div><div class="lbl">Core BI tools</div></div>
+        <div class="metric"><div class="num">4</div><div class="lbl">Industry domains</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Power BI -->
+  <section class="section" id="powerbi">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-code"><span class="chip">PBI</span><span class="axis"></span></div>
+        <h2>Power BI Projects</h2>
+        <p>Interactive dashboards covering KPI reporting, trend analysis, segmentation and data storytelling — modelled in SQL and measured in DAX.</p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card reveal">
+          <a class="card-img" href="images/dashboard-preview.png" target="_blank" rel="noopener">
+            <img src="images/dashboard-preview.png" alt="Swoop Food Delivery analytics dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>Swoop Food Delivery Analytics</h3>
+            <div class="underline"></div>
+            <p>End-to-end business intelligence project analysing revenue performance, customer retention, operational efficiency and segmentation for a food-delivery company using SQL, PostgreSQL, Power BI and DAX.</p>
+            <div class="actions">
+              <a class="act" href="https://app.powerbi.com/view?r=eyJrIjoiZGQ5ZmRhNTMtOWUxZS00N2IwLTllZTItYmY0NzRhNDdjZmFmIiwidCI6ImZmMGYzZTNhLTNlNTMtNDU0Zi1iMmI1LTZjNjg3NTNiOGVlNCJ9" target="_blank" rel="noopener">Live dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://emaraldosei-ctrl.github.io/swoop-food-delivery-analytics/" target="_blank" rel="noopener">GitHub repository <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/presentation/d/1K2IF4M8e1jYq_k2IQ6uWmqYrnkZlXxZh/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">Business presentation <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Executive Report Analysis.png" target="_blank" rel="noopener">
+            <img src="images/Executive Report Analysis.png" alt="MetroFresh retail shrink analysis dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>MetroFresh Retail Shrink Analysis</h3>
+            <div class="underline"></div>
+            <p>Business intelligence project analysing retail shrinkage, inventory adjustment accuracy, operational losses and store-level performance using SQL, Power BI and KPI-driven analytics.</p>
+            <div class="actions">
+              <a class="act" href="https://app.powerbi.com/view?r=eyJrIjoiODJjZDQwYjctOTcwYS00OTI5LWE0NzAtMGU4YzQxZDU5ZDhiIiwidCI6ImZmMGYzZTNhLTNlNTMtNDU0Zi1iMmI1LTZjNjg3NTNiOGVlNCJ9" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://github.com/emaraldosei-ctrl/metrofresh-shrink-analysis" target="_blank" rel="noopener">GitHub repository <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/presentation/d/1fEptfde-n4en5Q3AQQMLc0CAPi3vEwOG/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-04-29 090050.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-04-29 090050.png" alt="Breast cancer survival analysis dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>Breast Cancer Survival Analysis</h3>
+            <div class="underline"></div>
+            <p>A healthcare analytics dashboard exploring survival outcomes, patient demographics, tumour characteristics and treatment patterns.</p>
+            <div class="actions">
+              <a class="act" href="https://drive.google.com/file/d/1uQL86dyAuD10wGMoiLyDVYM9mKlboKct/view?usp=drive_link" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1tqnbSbyC90lAt1GJFc_MxoSmuCcowau3/view?usp=drive_link" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1XhTGql5uY7xkXHrQC1FrhXBFx4w0Csy2/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-02-06 145958.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-02-06 145958.png" alt="NovaMed Solutions sales and customer intelligence dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>NovaMed Solutions — Sales &amp; Customer Intelligence</h3>
+            <div class="underline"></div>
+            <p>A Power BI case study analysing pharmaceutical sales, product performance and customer behaviour.</p>
+            <div class="actions">
+              <a class="act" href="https://drive.google.com/file/d/1ncsMLz8DbVIwcUu33-6RJcyOwIbIsFCO/view?usp=drive_link" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/drive/folders/1IR2wMq6Q2whlVCYSor-Govf2IPaAURRo?usp=drive_link" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/presentation/d/1yE_VtK294ph48sWDD19fGl3JW6hXMM8v/edit?usp=drive_link&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-01-26 211812.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-01-26 211812.png" alt="SwiftBuy sales and customer performance dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>SwiftBuy — Sales &amp; Customer Performance</h3>
+            <div class="underline"></div>
+            <p>A Power BI case study analysing e-commerce sales trends, customer behaviour and product performance.</p>
+            <div class="actions">
+              <a class="act" href="https://drive.google.com/file/d/1iotU6QpiKToHQa3zodHpTjBOpue32MY5/view?usp=sharing" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/10duE-wnJSn-rt7e4OG_ctStoslRlffAv/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1wZxmxp2dsq6SwWbDq7B5eiEr-VQ60dZP/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-01-30 172905.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-01-30 172905.png" alt="Deskify sales and workspace analytics dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>Deskify — Sales &amp; Workspace Analytics</h3>
+            <div class="underline"></div>
+            <p>A Power BI case study analysing retail sales trends, product performance and customer behaviour.</p>
+            <div class="actions">
+              <a class="act" href="https://drive.google.com/file/d/1iwGgYCYWVk7Se3hgpIBvz7ipzy9rBqT6/view?usp=sharing" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/10kwgEumY0n3DvzR2_icm4Uw4VgG57EBq/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1QGlfeJvKPHUA7l7TkUINyRlhU7u6lV_2/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-04-29 083202.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-04-29 083202.png" alt="NextGen Corp employee retention and workforce analytics dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>NextGen Corp — Employee Retention &amp; Workforce Analytics</h3>
+            <div class="underline"></div>
+            <p>A Power BI and SQL HR analytics project focused on employee turnover, retention risk, salary trends and workforce performance — built through advanced querying, data modelling and interactive dashboards.</p>
+            <div class="actions">
+              <a class="act" href="https://drive.google.com/file/d/1h6kETOnWSvj6sp7FuejXDA82zBpzkedz/view?usp=sharing" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1h6kETOnWSvj6sp7FuejXDA82zBpzkedz/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Excel -->
+  <section class="section" id="excel">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-code"><span class="chip">XLS</span><span class="axis"></span></div>
+        <h2>Excel Dashboards &amp; Analysis</h2>
+        <p>Business reporting built in Excel with pivot tables, slicers, KPI tracking and clean data visualisation.</p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-01-23 140452.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-01-23 140452.png" alt="Café Harmony Excel sales dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>Café Harmony — Sales Dashboard</h3>
+            <div class="underline"></div>
+            <p>An Excel dashboard analysing revenue trends, top-selling products, customer demographics and store performance.</p>
+            <div class="actions">
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1caCNXHiiJNtvZ2qf8keMgZCE-aTzp6Yd/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1caCNXHiiJNtvZ2qf8keMgZCE-aTzp6Yd/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/presentation/d/1orqUMNyQl4e-N_GwYFJHfJ2gEE_0oeg1/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2025-12-23 202638.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2025-12-23 202638.png" alt="ShopNest Excel business performance dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>ShopNest — Business Performance</h3>
+            <div class="underline"></div>
+            <p>An Excel analytics project using pivot tables, slicers and visual reporting to explore sales performance and customer behaviour.</p>
+            <div class="actions">
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1yZL-LV6_LjcWu29mcc4QEaG_yIjloBoq/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1Kqu-OryLxcp0-HNuMl0IBvqWE9qyAagT/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1BuBbDDFFyeKSbt6nS2WoCkgWrRebOCMo/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tableau -->
+  <section class="section" id="tableau">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-code"><span class="chip">TBL</span><span class="axis"></span></div>
+        <h2>Tableau Dashboards &amp; Visual Analytics</h2>
+        <p>Visual storytelling in Tableau — geographic mapping, trend analysis, KPI reporting and interactive, data-driven insight.</p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-04-15 082305.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-04-15 082305.png" alt="ChocodeLuxe Tableau sales analysis dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>ChocodeLuxe — Sales Analysis &amp; Insights</h3>
+            <div class="underline"></div>
+            <p>A Tableau dashboard exploring revenue growth, profit, product demand, channel effectiveness and country-level trends through interactive storytelling — built to surface profitable opportunities and support commercial strategy.</p>
+            <div class="actions">
+              <a class="act" href="https://public.tableau.com/views/ChocodeLuxeSalesAnalysisInsights/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1RCKuXf3qUxx5hF6bXZFTnfuhu_oyrjdO/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1WspiJnzg8M77ItXXKdmc71c5Fvnv-GtC/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <a class="card-img" href="images/Screenshot 2026-03-28 120752.png" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2026-03-28 120752.png" alt="VibeNode Tableau retention dashboard" loading="lazy" onerror="this.closest('.card-img').classList.add('noimg')" />
+            <span class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15l3-4 3 2 4-6"/></svg>Preview</span>
+            <span class="open mono">Open image ↗</span>
+          </a>
+          <div class="card-body">
+            <h3>VibeNode — Retention Dashboard</h3>
+            <div class="underline"></div>
+            <p>A Tableau user-retention dashboard analysing customer activity, churn risk, revenue trends and segment performance across multiple countries — with interactive filters and KPI tracking to uncover growth opportunities.</p>
+            <div class="actions">
+              <a class="act" href="https://public.tableau.com/views/VIBENodeDashboardAnalysis/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">View dashboard <span class="a-ic">↗</span></a>
+              <a class="act" href="https://docs.google.com/spreadsheets/d/1CmOTXnziJ_WgYs5scGHU3ylQ22Mareap/edit?usp=sharing&ouid=105409366686845963739&rtpof=true&sd=true" target="_blank" rel="noopener">View dataset <span class="a-ic">↗</span></a>
+              <a class="act" href="https://drive.google.com/file/d/1m-MAcEniKiJkXER-3bdcBotWmy-2PQyx/view?usp=sharing" target="_blank" rel="noopener">Analysis report <span class="a-ic">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SQL -->
+  <section class="section" id="sql">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-code"><span class="chip">SQL</span><span class="axis"></span></div>
+        <h2>SQL Projects &amp; Data Analysis</h2>
+        <p>Extracting, cleaning, querying and interpreting data with joins, CASE logic, aggregations and subqueries.</p>
+      </div>
+
+      <div class="sql-layout reveal">
+        <div class="sql-gallery">
+          <a class="sql-shot" href="images/Screenshot 2026-03-15 100403.png" target="_blank" rel="noopener"><img src="images/Screenshot 2026-03-15 100403.png" alt="Employee analysis SQL query" loading="lazy" onerror="this.closest('.sql-shot').classList.add('noimg')" /><span class="ph">SQL query</span></a>
+          <a class="sql-shot" href="images/Screenshot 2026-03-15 100431.png" target="_blank" rel="noopener"><img src="images/Screenshot 2026-03-15 100431.png" alt="Retention risk SQL query" loading="lazy" onerror="this.closest('.sql-shot').classList.add('noimg')" /><span class="ph">SQL query</span></a>
+          <a class="sql-shot" href="images/Screenshot 2026-03-15 100501.png" target="_blank" rel="noopener"><img src="images/Screenshot 2026-03-15 100501.png" alt="Performance analysis SQL query" loading="lazy" onerror="this.closest('.sql-shot').classList.add('noimg')" /><span class="ph">SQL query</span></a>
+          <a class="sql-shot" href="images/Screenshot 2026-03-15 100528.png" target="_blank" rel="noopener"><img src="images/Screenshot 2026-03-15 100528.png" alt="Salary analysis SQL query" loading="lazy" onerror="this.closest('.sql-shot').classList.add('noimg')" /><span class="ph">SQL query</span></a>
+        </div>
+
+        <div class="sql-panel">
+          <h3>NextGen Corp — SQL Workforce Analysis</h3>
+          <div class="sql-row"><div class="k">Problem</div><div class="v">High employee turnover and unclear retention drivers across departments.</div></div>
+          <div class="sql-row"><div class="k">Analysis</div><div class="v">Used SQL joins, CASE statements, aggregations and subqueries to analyse attrition, salary trends, tenure and department performance.</div></div>
+          <div class="sql-row"><div class="k">Key findings</div><div class="v">Identified high-risk departments, turnover patterns and relationships between salary, performance and retention.</div></div>
+          <div class="sql-row"><div class="k">KPIs</div>
+            <div class="kpis"><span>Turnover rate</span><span>Avg. salary</span><span>Avg. tenure</span><span>Risk by dept.</span></div>
+          </div>
+          <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1a-w3gj8ZY2dkKXNcMRQd_mfT3fGEtTaE?usp=sharing" target="_blank" rel="noopener">View project <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer / Contact -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <h3>Esmeralda Osei</h3>
+        <p class="tag">Data Analyst · Power BI · SQL · Tableau · Excel</p>
+        <div class="open-pill"><span class="pulse"></span> Open to opportunities</div>
+      </div>
+      <div class="foot-right">
+        <div class="foot-links">
+          <a href="#powerbi">Power BI</a>
+          <a href="#excel">Excel</a>
+          <a href="#tableau">Tableau</a>
+          <a href="#sql">SQL</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/esmeralda-pinamang-osei-942a35111" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.5 8.75 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3-2 0-2.3 1.56-2.3 3.18V21H9z"/></svg>
+          </a>
+          <a href="https://github.com/emaraldosei-ctrl" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          </a>
+        </div>
+        <p class="foot-email">📩 <a href="mailto:emaraldosei@gmail.com">emaraldosei@gmail.com</a></p>
+      </div>
+    </div>
+    <p class="copy">© 2026 Esmeralda Osei · Built to turn data into decisions.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      els.forEach(function(e){e.classList.add('in')});return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(e){io.observe(e)});
+  })();
+
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+    var map = {}; links.forEach(function(l){ map[l.getAttribute('href').slice(1)] = l; });
+    var secs = ['powerbi','excel','tableau','sql'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ links.forEach(function(l){l.classList.remove('active')}); if(map[en.target.id]) map[en.target.id].classList.add('active'); }
+      });
+    },{threshold:.4});
+    secs.forEach(function(s){obs.observe(s)});
+  })();
+</script>
+
+</body>
+</html>
